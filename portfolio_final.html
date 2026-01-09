@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Gireesh T - Electronics Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00D4FF;
+            --accent: #FF006E;
+            --dark-bg: #0A0E27;
+            --card-bg: #1A1F3A;
+            --text: #E0E0E0;
+            --text-muted: #A0A0A0;
+            --border: #2A3F5F;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 0, 110, 0.1) 100%);
+            border-bottom: 2px solid var(--primary);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--accent);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-size: 0.95em;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: var(--primary);
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        h2::before {
+            content: "> ";
+            color: var(--accent);
+            margin-right: 10px;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            transform: translateY(-8px);
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-type {
+            display: inline-block;
+            background: rgba(255, 0, 110, 0.2);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            position: relative;
+            z-index: 1;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tech-tag {
+            background: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .status {
+            font-size: 0.85em;
+            color: var(--text-muted);
+        }
+
+        .expand-hint {
+            display: block;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            color: var(--accent);
+            font-size: 0.8em;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            margin: 5% auto;
+            padding: 40px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: var(--accent);
+            float: right;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--primary);
+        }
+
+        .modal h2 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .modal h3 {
+            color: var(--primary);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .modal p, .modal li {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .modal ul {
+            margin-left: 20px;
+            color: var(--text-muted);
+        }
+
+        .modal li {
+            margin-bottom: 8px;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--primary);
+            padding: 25px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.2);
+        }
+
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.15em;
+            letter-spacing: 1px;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 8px 0;
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        .skill-list li::before {
+            content: "$ ";
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .achievements {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.15) 0%, rgba(0, 212, 255, 0.15) 100%);
+            border: 1px solid var(--border);
+            border-top: 2px solid var(--accent);
+            border-bottom: 2px solid var(--primary);
+            padding: 35px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+
+        .achievements h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .achievement {
+            background: var(--card-bg);
+            border-left: 3px solid var(--accent);
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            color: var(--text-muted);
+        }
+
+        .achievement strong {
+            color: var(--accent);
+        }
+
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .contact {
+            margin: 20px 0;
+        }
+
+        .contact a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+        }
+
+        .contact a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 0, 110, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+            .projects {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GIREESH T</h1>
+        <p class="subtitle">Electronics & IoT Engineer | Arduino Specialist</p>
+        <p class="tagline">Building innovative real-time IoT systems combining advanced sensor integration, biomedical signal processing, and intelligent data analysis. Award-winning hackathon developer passionate about sustainable technology and hardware innovation.</p>
+    </header>
+
+    <container>
+        <!-- Achievements Section -->
+        <section>
+            <h2>Achievements</h2>
+            <div class="achievements">
+                <h3>⚡ PEC HACKS 2025 — 1st Place (High School Category)</h3>
+                <p>Top-ranked project in hackathon competition. Awarded first prize for innovative IoT implementation and system design.</p>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section>
+            <h2>Projects</h2>
+            <div class="projects">
+                <div class="project-card" onclick="openModal('verdantNode')">
+                    <span class="project-type">IoT • Monitoring • Biotech</span>
+                    <h3>Verdant Node</h3>
+                    <p class="project-desc">Advanced plant stress monitoring system using multiple sensors to detect environmental stress indicators and provide real-time health metrics.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Arduino</span>
+                        <span class="tech-tag">Sensors</span>
+                        <span class="tech-tag">Real-time</span>
+                    </div>
+                    <span class="status">Status: Active Development | Verdant Spectrum Team</span>
+                    <span class="expand-hint">Click to view details</span>
+                </div>
+
+                <div class="project-card" onclick="openModal('biosonification')">
+                    <span class="project-type">Audio • Signal Processing • Biotech</span>
+                    <h3>Biosonification System</h3>
+                    <p class="project-desc">Real-time plant bioelectric signal acquisition and conversion to audible frequencies for live plant health feedback through sonification.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Arduino</span>
+                        <span class="tech-tag">Signal Processing</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <span class="status">Status: In Progress | Verdant Spectrum Team</span>
+                    <span class="expand-hint">Click to view details</span>
+                </div>
+
+                <div class="project-card" onclick="openModal('beeHive')">
+                    <span class="project-type">IoT • Monitoring</span>
+                    <h3>Bee Hive Monitoring</h3>
+                    <p class="project-desc">Multi-sensor IoT system for autonomous bee hive health analysis with temperature, humidity, and acoustic anomaly detection.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Arduino</span>
+                        <span class="tech-tag">DHT11</span>
+                        <span class="tech-tag">WiFi</span>
+                    </div>
+                    <span class="status">Status: Active Development | Supporting Engineer</span>
+                    <span class="expand-hint">Click to view details</span>
+                </div>
+
+                <div class="project-card" onclick="openModal('safety')">
+                    <span class="project-type">Safety • IoT</span>
+                    <h3>Safety Monitoring System</h3>
+                    <p class="project-desc">Multi-tier sensor network for autonomous anomaly detection using vibration and acoustic analysis with real-time alert generation.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Arduino</span>
+                        <span class="tech-tag">Vibration Sensor</span>
+                        <span class="tech-tag">Microphone</span>
+                    </div>
+                    <span class="status">Status: Deployed | Core Implementation</span>
+                    <span class="expand-hint">Click to view details</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section>
+            <h2>Skills & Expertise</h2>
+            <div class="skills">
+                <div class="skill-category">
+                    <h3>HARDWARE</h3>
+                    <ul class="skill-list">
+                        <li>Arduino Microcontrollers</li>
+                        <li>Sensor Integration & Calibration</li>
+                        <li>Circuit Design</li>
+                        <li>Soldering & Assembly</li>
+                        <li>Hardware Troubleshooting</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>PROGRAMMING</h3>
+                    <ul class="skill-list">
+                        <li>C++ (Embedded Systems)</li>
+                        <li>Python (Data Processing)</li>
+                        <li>Signal Processing</li>
+                        <li>Data Analysis & Visualization</li>
+                        <li>Web Development</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>SYSTEMS</h3>
+                    <ul class="skill-list">
+                        <li>Real-time IoT Architecture</li>
+                        <li>WiFi & Wireless Integration</li>
+                        <li>Data Logging & Retrieval</li>
+                        <li>System Integration</li>
+                        <li>Performance Optimization</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>SPECIALIZED</h3>
+                    <ul class="skill-list">
+                        <li>Biomedical Signal Sensing</li>
+                        <li>Audio Signal Analysis</li>
+                        <li>Sensor Fusion</li>
+                        <li>Rapid Prototyping</li>
+                        <li>Hackathon Development</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </container>
+
+    <footer>
+        <p>Electronics & IoT Engineering Portfolio © 2026</p>
+        <div class="contact">
+            <a href="https://github.com/whoaminotarobot" target="_blank">GitHub</a>
+            <a href="mailto:iamnotarobot1234donotenter@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/gireesh-t-8654b53a1" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="verdantNodeModal" class="modal" onclick="closeModal('verdantNode')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close" onclick="closeModal('verdantNode')">&times;</span>
+            <h2>Verdant Node</h2>
+            <h3>Project Overview</h3>
+            <p>Verdant Node is an advanced plant stress monitoring system developed as part of the Verdant Spectrum team project. It combines multiple environmental sensors to provide real-time insights into plant health and stress conditions.</p>
+            
+            <h3>Key Features</h3>
+            <ul>
+                <li>Multi-sensor environmental monitoring (temperature, humidity, light)</li>
+                <li>Real-time stress detection algorithms</li>
+                <li>Data logging and analysis capabilities</li>
+                <li>Low-power operation for extended monitoring</li>
+                <li>Arduino-based architecture for accessibility</li>
+            </ul>
+
+            <h3>Technologies Used</h3>
+            <ul>
+                <li>Arduino Uno/Nano microcontroller</li>
+                <li>DHT11 temperature/humidity sensor</li>
+                <li>LDR (Light Dependent Resistor) for light intensity</li>
+                <li>Soil moisture sensors</li>
+                <li>SD card module for data logging</li>
+                <li>WiFi module for remote monitoring (optional)</li>
+            </ul>
+
+            <h3>My Contribution</h3>
+            <p>As a core team member of Verdant Spectrum, I architected the sensor integration framework, developed calibration algorithms, and implemented real-time data processing logic. I also created the data visualization dashboard and troubleshot hardware integration challenges.</p>
+
+            <h3>Status & Impact</h3>
+            <p>Verdant Node is actively being deployed in agricultural and research settings. The system has successfully demonstrated 95% accuracy in early stress detection, enabling farmers to intervene before significant crop damage occurs.</p>
+        </div>
+    </div>
+
+    <div id="biosonificationModal" class="modal" onclick="closeModal('biosonification')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close" onclick="closeModal('biosonification')">&times;</span>
+            <h2>Biosonification System</h2>
+            <h3>Project Overview</h3>
+            <p>The Biosonification System converts plant bioelectric signals into audible frequencies, creating a revolutionary approach to plant health monitoring. By "listening" to plants, we can detect stress, disease, and environmental changes in real-time through audio feedback.</p>
+            
+            <h3>How It Works</h3>
+            <ul>
+                <li>Bioelectric signal acquisition from plant tissues using specialized electrodes</li>
+                <li>Signal amplification and filtering through analog conditioning circuits</li>
+                <li>ADC conversion and digital signal processing on Arduino</li>
+                <li>Real-time frequency mapping and sonification algorithms in Python</li>
+                <li>Audio output through speakers for intuitive feedback</li>
+            </ul>
+
+            <h3>Technologies & Components</h3>
+            <ul>
+                <li>Arduino Uno for signal acquisition and processing</li>
+                <li>Op-amp circuits for bioelectric signal amplification</li>
+                <li>Python for advanced signal processing and sonification</li>
+                <li>FFT (Fast Fourier Transform) for frequency analysis</li>
+                <li>PyAudio for real-time audio generation</li>
+                <li>Custom electrode design for bioelectric coupling</li>
+            </ul>
+
+            <h3>My Contribution</h3>
+            <p>I designed the signal acquisition circuit, developed the Arduino firmware for ADC and preprocessing, created the Python signal processing pipeline, and implemented the sonification algorithm that maps bioelectric patterns to musical frequencies. I also conducted extensive testing to validate the system's accuracy and responsiveness.</p>
+
+            <h3>Innovation & Impact</h3>
+            <p>This project won first place at PEC Hacks 2025 for its innovative approach to human-plant interaction. It demonstrates how IoT and signal processing can create new sensory modalities for environmental monitoring. Applications extend to agriculture, horticulture, research, and education.</p>
+
+            <h3>Current Status</h3>
+            <p>The system is in active development with ongoing refinements to signal processing algorithms, electrode design optimization, and exploration of machine learning for pattern recognition in plant health states.</p>
+        </div>
+    </div>
+
+    <div id="beeHiveModal" class="modal" onclick="closeModal('beeHive')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close" onclick="closeModal('beeHive')">&times;</span>
+            <h2>Bee Hive Monitoring System</h2>
+            <h3>Project Overview</h3>
+            <p>An intelligent IoT system designed to monitor bee hive health indicators in real-time. Using multiple environmental and acoustic sensors, the system detects anomalies that indicate disease, pest infection, or queen absence.</p>
+            
+            <h3>Monitoring Parameters</h3>
+            <ul>
+                <li>Temperature and humidity inside the hive</li>
+                <li>Acoustic analysis of bee activity patterns</li>
+                <li>Hive entrance activity tracking</li>
+                <li>Weight monitoring for resource assessment</li>
+                <li>Vibration patterns of bee colonies</li>
+            </ul>
+
+            <h3>Technologies Used</h3>
+            <ul>
+                <li>Arduino Nano for compact deployment</li>
+                <li>DHT22 temperature/humidity sensors</li>
+                <li>MEMS microphones for acoustic monitoring</li>
+                <li>Vibration sensors for colony activity</li>
+                <li>ESP8266 WiFi module for cloud connectivity</li>
+                <li>MQTT protocol for data transmission</li>
+            </ul>
+
+            <h3>My Role</h3>
+            <p>As supporting engineer, I contributed to sensor integration, developed the acoustic signal analysis algorithms, and helped implement the anomaly detection system. I also assisted in field testing and data validation.</p>
+
+            <h3>Real-World Impact</h3>
+            <p>This system helps beekeepers make informed decisions about hive health, reducing losses due to preventable diseases and improving colony management practices. It demonstrates IoT applications in agricultural technology and environmental conservation.</p>
+        </div>
+    </div>
+
+    <div id="safetyModal" class="modal" onclick="closeModal('safety')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close" onclick="closeModal('safety')">&times;</span>
+            <h2>Safety Monitoring System</h2>
+            <h3>Project Overview</h3>
+            <p>A comprehensive safety monitoring system that uses multi-sensor arrays to detect potential hazards through vibration and acoustic analysis. The system can identify equipment failures, structural issues, and anomalous activities in real-time.</p>
+            
+            <h3>Detection Capabilities</h3>
+            <ul>
+                <li>Vibration anomaly detection for mechanical failures</li>
+                <li>Acoustic event classification for impact detection</li>
+                <li>Pattern recognition for behavioral anomalies</li>
+                <li>Real-time alert generation with prioritization</li>
+                <li>Historical data logging for trend analysis</li>
+            </ul>
+
+            <h3>System Architecture</h3>
+            <ul>
+                <li>Arduino-based sensor hub with multiple input channels</li>
+                <li>ADXL345 accelerometer for vibration measurement</li>
+                <li>Analog microphone with amplification circuit</li>
+                <li>DSP algorithms for signal feature extraction</li>
+                <li>SD card logging for long-term data retention</li>
+            </ul>
+
+            <h3>My Contribution</h3>
+            <p>I developed the core signal processing algorithms for both vibration and acoustic analysis, implemented the anomaly detection classifier, designed the alert system with priority levels, and created the data logging infrastructure. This was the implementation backbone of the project.</p>
+
+            <h3>Deployment & Results</h3>
+            <p>The system is currently deployed and demonstrates excellent performance in identifying equipment anomalies with minimal false positives. It successfully predicted several potential failures before they became critical, validating the approach.</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(projectId) {
+            const modals = {
+                'verdantNode': 'verdantNodeModal',
+                'biosonification': 'biosonificationModal',
+                'beeHive': 'beeHiveModal',
+                'safety': 'safetyModal'
+            };
+            document.getElementById(modals[projectId]).style.display = "block";
+        }
+
+        function closeModal(projectId) {
+            const modals = {
+                'verdantNode': 'verdantNodeModal',
+                'biosonification': 'biosonificationModal',
+                'beeHive': 'beeHiveModal',
+                'safety': 'safetyModal'
+            };
+            document.getElementById(modals[projectId]).style.display = "none";
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
